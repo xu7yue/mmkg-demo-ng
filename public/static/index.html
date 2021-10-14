@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<!-- <meta charset="UTF-8"> -->
+		<meta http-equiv="Content-Type" content="：text/html; charset=utf8">
+		<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="screen" charset="utf-8" />
+		<script type="text/javascript" src="/static/js/jquery-3.4.1.min.js"></script>
+		<script src="/static/js/d3.v3.min.js" charset="utf-8"></script>
+		<title>条件性知识图谱（演示系统）</title>
+	</head>
+	<body id='main-body' style="background-color: #ccc">
+	<div style="max-width: 1300px;min-width: auto;margin: 0 auto;background-color: white;box-shadow: 0.4em 0.4em 0.5em rgba(0,0,0,.3)">
+		<script type="text/javascript">
+			var statements_graph;
+		</script>
+		<!-- <script src="/static/js/doc_graph.js"> </script>
+		<div id="light" class="white_content">
+			<div id='close'>
+				<a href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';parent.document.getElementById('main-body').style.overflow='auto';document.querySelector('.doc-focus').checked=false" id='a-close'>CLOSE</a>
+			</div>
+			<div id="doc1">
+				<div id="left-wrap">
+					<div id="svg-wrap">
+						<svg xmlns:svg="http://www.w3.org/2000/svg"
+							xmlns="http://www.w3.org/2000/svg"
+							version="1.0" id="main-view" > </svg>
+					</div>
+				</div>
+				<div id="control-wrap">
+					<div class="row">
+						<h3> 链接信息详情 </h3>
+						<div id="explaination-link">
+						</div>
+					</div>
+					<div class="row2">
+						<h3> 节点信息详情 </h3>
+						<div id="explaination-node">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="doc2">
+				<div id="left-wrap">
+					<div id="svg-wrap2">
+						<svg xmlns:svg="http://www.w3.org/2000/svg"
+							xmlns="http://www.w3.org/2000/svg"
+							version="1.0" id="main-view2" > </svg>
+					</div>
+				</div>
+				<div id="control-wrap">
+					<div class="row">
+						<h3> Link Detail </h3>
+						<div id="graph-link">
+						</div>
+					</div>
+					<div class="row2">
+						<h3> Node Detail </h3>
+						<div id="graph-node">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		
+        <!-- <div id="fade" class="black_overlay" onclick = "document.getElementById('light').style.display='none';document.getElementById('stmt-light').style.display='none';document.getElementById('fade').style.display='none';parent.document.getElementById('main-body').style.overflow='auto'"></div> -->
+
+		<div id="top-wrap">
+			<div class="title">
+				<img class="logo" src="/static/logo.png" />
+				<h1>
+					条件性知识图谱（中文通用域演示系统）
+				</h1>
+			</div>
+		</div>
+		<div id="input-wrap" >
+			<form id='text-form' name='passtext' action="/structuring" method="post" target="my_iframe">
+				<div id="input-text">
+					<textarea type="text" name="text" id='input-area' style="resize: none">路透社10日报道称，波兰宪法法院7日裁定，欧洲法院的某些裁决对波兰的管辖权没有约束力。这引发外界对波兰可能“脱欧”的猜测。当地时间10日，超过10万人聚集在波兰首都及100多个城镇参与游行，支持波兰留在欧盟。组织者，示威活动在波兰的100多个城镇和城市以及国外几个城市，仅首都华沙就有8万到10万人聚集，人们挥舞着波兰和欧盟的旗帜，高喊“我们不走”。</textarea><br />
+					<textarea type="text" name="qs" style="display: none" readonly="readonly">
+						CTGA
+					</textarea>
+				</div>
+				<!--
+				<img style="display: none;" id="preview_image" />
+				-->
+				<button class="btn btn-default btn-small form-control" name="data_submit" type="submit" onclick = "load_home()">条件性知识图谱</button>
+			</form>
+		</div>
+		<div id="top-wrap2">
+			<div class="title">
+				<h1 align="center">
+					图片上传及匹配
+				</h1>
+			</div>
+		</div>
+		<div align="center">
+			<div id="file_upload">
+			　　<p>
+			　　　　<input type="file" id="test-image-file" name="test" accept="image/jpeg, image/png, image/jpg">
+			　　</p>
+				<img id="preview-image" >
+			    <p><button id="upload-image-btn" class="btn btn-default btn-small form-control" name="img_submit" onclick="upload_image()">上传并匹配</button></p>
+				<p id="test-file-info"></p>
+			</div>
+			<div id="results-wrapper" class="results-wrapper">
+			</div>
+		</div>
+
+		<div id="graph-frame">
+			<iframe id="sub-page"></iframe>
+			<iframe name="my_iframe" id="real-sub-page" style="display: none"></iframe>
+		</div>
+
+		<div id="div0" style="height: 0px; padding-bottom: 50px; padding-left: 70px; padding-right: 70px;">			
+			<div id="bigcilin" style="height: 100%; border-top: 1px solid #bbbbbb; border-bottom: 1px solid #bbbbbb;">
+				<div id="entity0" style="width:385px;height:100%;float: left;background-color: beige; border-right:1px solid #bbbbbb; border-left: 1px solid #bbbbbb;">
+				</div>
+				<div id="entity1" style="width:386px;height:100%;float: left;background-color: beige; border-right:1px solid #bbbbbb;"></div>
+				<div id="entity2" style="width:385px;height:100%;float: left;background-color: beige; border-right:1px solid #bbbbbb;"></div>
+			</div>
+		</div>
+
+		<script>
+			function load_home() {
+				var input_text = $("#input-area").val();
+				var input_length = input_text.split(' ').length;
+				//var sub_page = $("#real-sub-page")[0].contentDocument.URL;
+				//console.log(sub_page);
+				document.getElementById("sub-page").contentWindow.document.body.innerHTML = `<object type="text/html" data="/static/loading.html?length=${input_length}" width="100%" height="50%"></object>`;
+				document.getElementById("sub-page").style.display = 'block';
+				document.getElementById("real-sub-page").style.display = 'none';
+
+				document.getElementById("div0").style.height = "652px";
+			};
+			//var count = 0;
+			//var explorer = window.navigator.userAgent;
+			//var sub_page = $("#real-sub-page")[0].contentDocument.URL;
+			//console.log(sub_page);
+			//console.log(explorer);
+			document.getElementById("real-sub-page").onload = function() {
+				//alert("onload");
+				var sub_page = $("#real-sub-page")[0].contentDocument.URL;
+				//console.log(sub_page);
+				if(sub_page.indexOf("about:blank") >= 0){
+					return;
+				}
+				else{
+					document.getElementById("sub-page").style.display='none';
+					document.getElementById("real-sub-page").style.display='block';
+					//document.getElementById("real-sub-page").contentWindow.document.getElementById("show_graph").click();
+					document.getElementById("real-sub-page").contentWindow.comp_graphs();
+				};
+			};
+
+			var
+				fileInput = document.getElementById('test-image-file'),
+				info = document.getElementById('test-file-info');
+				preview = document.getElementById('preview-image');
+			// 监听change事件:
+			fileInput.addEventListener('change', function() {
+				// // 清除背景图片:
+				preview.style.display = "block";
+				// preview.style.width = "300px";
+				preview.style.height = "300px";
+				preview.style.backgroundImage = '';
+				// 检查文件是否选择:
+				if (!fileInput.value) {
+					info.innerHTML = '没有选择文件';
+					return;
+				}
+				// 获取File引用:
+				var file = fileInput.files[0];
+				//判断文件大小
+				var size = file.size;
+				if (size >= 1 * 1024 * 1024) {
+					alert('文件大小超出限制');
+					return false;
+				}
+				/*
+				// 获取File信息:
+				info.innerHTML = '文件名称: ' + file.name + '<br>' +
+					'文件大小: ' + file.size + '<br>' +
+					'上传时间: ' + file.lastModifiedDate;
+				*/
+				const url = window.URL.createObjectURL(file);
+				preview.src = url;
+				/*
+				if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/jpg') {
+						alert('不是有效的图片文件!');
+						return;
+					}
+					// 读取文件:
+					var reader = new FileReader();
+					reader.onload = function(e) {
+						var
+							data = e.target.result;         
+						preview.style.backgroundImage = 'url(' + data + ')';
+					};
+					// 以DataURL的形式读取文件:
+					reader.readAsDataURL(file);*/
+					
+			});
+				// upload button
+				function upload() {
+					// 获取File引用:
+					var file = fileInput.files[0];
+					// TODO The post request is todo
+			};
+
+			const upload_image = () => {
+				const upload_btn = document.getElementById("upload-image-btn")
+				upload_btn.innerText = "上传中";
+				upload_btn.disabled = true;
+
+				const file_input = document.getElementById('test-image-file');
+				const file = file_input.files[0];
+				const graph = JSON.parse(document.getElementById("real-sub-page").contentWindow.statements_graph.replaceAll(/&#39;/g, '"'));
+
+				const sents = graph.nodes
+					.filter(x => /* x.category === 1 || */x.category === 3)
+					.map(x => x.category === 1 ? x.sent : x.name)
+					.filter(x => x && !x.startsWith("__"))
+					.map(x => x.replaceAll(" ", ""));
+
+				const form_data = new FormData();
+				// form_data.append("sents", JSON.stringify(sents));
+				form_data.append("image", file);
+
+				fetch("https://api.kg.sota.wiki/v1/mmkg_demo?sents=" + encodeURI(JSON.stringify(sents)), { method: "POST", body: form_data})
+					.then(rsp => rsp.json())
+					.then(data => show_words(data.data));
+			}
+
+			const show_words = (words) => {
+				words.sort((a, b) => b[2] - a[2]);
+
+				const innerHTML = words.map((word) => `
+					<div class="result-box">
+						<span class="word">${word[0]}:</span>
+						<span class="score">${word[2].toFixed(4)}</span>
+					</div>
+				`).join("\n");
+				document.getElementById("results-wrapper").innerHTML = innerHTML;
+
+				const upload_btn = document.getElementById("upload-image-btn")
+				upload_btn.innerText = "上传并匹配";
+				upload_btn.disabled = false;
+			}
+		</script>
+	</div>
+	</body>
+</html>

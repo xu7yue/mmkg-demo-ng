@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="/static/js/jquery-3.4.1.min.js"></script>
+<title>Page Preloading Effects</title>
+
+<style>
+#loading-center-absolute {
+	position: relative;
+	left: 50%;
+	top: 20%;
+	height: 100x;
+	width: 100px;
+	margin-top: -50px;
+	margin-left: -125px;	
+
+}
+.object{
+    -moz-border-radius: 50% 50% 50% 50%;
+	-webkit-border-radius: 50% 50% 50% 50%;
+	border-radius: 50% 50% 50% 50%;
+	position: absolute;
+	border-left: 5px solid #4c4c4c;
+	border-right: 5px solid #4c4c4c;
+	border-top: 5px solid transparent;
+	border-bottom: 5px solid transparent;
+	-webkit-animation: animate 2s infinite;
+	animation: animate 2s infinite;	
+	}
+
+#object_one{
+	left: 75px;
+	top: 75px;
+	width: 50px;
+	height: 50px;
+	}
+							
+#object_two{
+	left: 65px;
+	top: 65px;
+	width: 70px;
+	height: 70px;
+	-webkit-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+	}
+		
+#object_three{
+	left: 55px;
+	top: 55px;
+	width: 90px;
+	height: 90px;
+	-webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+	}
+#object_four{
+	left: 45px;
+	top: 45px;
+	width: 110px;
+	height: 110px;
+	-webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+	}
+.progress{
+	position: relative;
+	left: 85px;
+	top: 90px;
+	font-size: 20px;
+	color: #4c4c4c;
+}
+
+@-webkit-keyframes animate {
+ 
+
+50% {
+	-ms-transform: rotate(180deg); 
+   	-webkit-transform: rotate(180deg); 
+    transform: rotate(180deg); 
+  }
+	  
+100% {
+	-ms-transform: rotate(0deg); 
+   	-webkit-transform: rotate(0deg); 
+    transform: rotate(0deg); 
+  }	  
+
+}
+
+@keyframes animate {
+
+50% {
+	-ms-transform: rotate(180deg); 
+   	-webkit-transform: rotate(180deg); 
+    transform: rotate(180deg); 
+  }
+	  
+100% {
+	-ms-transform: rotate(0deg); 
+   	-webkit-transform: rotate(0deg); 
+    transform: rotate(0deg); 
+  }	  
+
+  
+}
+
+</style>
+</head>
+<body>
+
+<div id="loading-center-absolute">
+<div class="object" id="object_four"></div>
+<div class="object" id="object_three"></div>
+<div class="object" id="object_two"></div>
+<div class="object" id="object_one"></div>
+<div class="progress"></div>
+<script type="text/javascript">
+		function sleep(delay) {
+			var start = (new Date()).getTime();
+			while ((new Date()).getTime() - start < delay) {
+				continue;
+			}
+		}
+
+		var input_length = window.location.href.split("=")[1];
+		console.log(input_length);
+	
+		jQuery.fn.anim_progressbar = function () {
+		
+			var iCms = 1000;
+			var seconds;
+			if (input_length < 50) {
+				seconds = 2;
+			}
+			else if (input_length < 100) {
+				seconds = 4.5;
+			}
+			else if(input_length < 150) {
+				seconds = 7;
+			}
+			else {
+				seconds = 10;
+			}
+		
+			var opt = {
+				start: new Date(), // now
+				finish: new Date().setTime(new Date().getTime() + seconds * iCms), 
+				interval: 100
+			}
+		
+			var vPb = this;
+		
+			return this.each(
+				function() {
+					var iDuration = opt.finish - opt.start;
+		
+					// looping process
+					var vInterval = setInterval(
+						function(){
+							var iElapsedMs = new Date() - opt.start, // elapsed time in MS
+							iPercent = (iElapsedMs > 0) ? iElapsedMs / iDuration * 100 : 0; // percentages
+							iPercent = iPercent.toFixed(0)
+		
+							// display current progress
+							$(vPb).html(iPercent+'%');
+		
+							// in case of Finish
+							if (iPercent >= 95 && iElapsedMs < 15*iCms) {
+								//clearInterval(vInterval);
+								$(vPb).html('95%');
+							}
+
+							if (seconds == 7 && iPercent == 51) {
+								sleep(1500);
+							}
+							if (seconds == 10 && iPercent == 31) {
+								sleep(1500);
+							}
+							if (seconds == 10 && iPercent == 61) {
+								sleep(1500);
+							}
+							if (iElapsedMs >= 15*iCms) {
+								$(vPb).html('97%');
+							}
+							if (iElapsedMs >= 20*iCms) {
+								$(vPb).html('99%');
+							}
+
+						} ,opt.interval
+					);
+				}
+			);
+		}
+		
+		$('.progress').anim_progressbar();
+		
+</script>
+
+</body>
+</html>
