@@ -124,7 +124,7 @@ function GraphContent(props) {
 const defaultText = "姜糖水可以治疗由风寒导致的感冒。中美科研团队在最新一期《细胞》杂志撰文称, 他们制造出首个由人类细胞和猴子细胞共同组成的胚胎, 这些嵌合体有助科学家进一步在其它物种体内（如猪）培育出人体组织, 但最新研究也引发了一些伦理争议。";
 
 const fetchGraphPage = async (text) => {
-  return await axios.post("http://127.0.0.1:28810/structuring", qs.stringify({ text: text }));
+  return await axios.post("https://kg.sota.wiki/legacy/structuring", qs.stringify({ text: text }));
 };
 
 function App() {
