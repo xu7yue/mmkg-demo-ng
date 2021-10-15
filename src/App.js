@@ -97,7 +97,6 @@ function GraphContent(props) {
       {
         props.graphPage && (
           <div className="graph-content-image-upload-wrapper">
-            <h3>上传图片</h3>
             <Dragger
               name="image"
               multiple={false}
@@ -130,7 +129,7 @@ function GraphContent(props) {
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
-              <p className="ant-upload-text">图像文本链接</p>
+              <p className="ant-upload-text">增加新图像及链接入图谱</p>
               <p className="ant-upload-hint">点击上传图片文件</p>
             </Dragger>
             {
