@@ -13,9 +13,26 @@ const { Dragger } = Upload;
 
 const tabList = [
   { key: 'entity', tab: '实体/关系' },
-  { key: 'event', tab: '事件' },
-  { key: 'graph', tab: '图谱' },
+  { key: 'event', tab: '事件抽取' },
+  { key: 'graph', tab: '知识图谱' },
 ];
+
+function EventContent(props) {
+  let src = null
+  if (props.inputText && props.inputText.indexOf("姜糖水可以治疗由风寒导致的感冒") !== -1 && props.inputText.indexOf("中美科研团队在最新一期") !== -1) {
+    src = "https://local.yfint.yunfutech.com/casetext/1";
+  } else if (props.inputText && props.inputText.indexOf("犯罪嫌疑人程某指") !== -1 && props.inputText.indexOf("澎湃新闻记者从上海市青浦区检察院获悉") !== -1) {
+    src = "https://local.yfint.yunfutech.com/casetext/2";
+  }
+
+  return (
+    src === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
+      <div className="event-content-wrapper">
+        <iframe className="event-content-iframe" src={src}></iframe>
+      </div>
+    )
+  );
+}
 
 function getWords() {
   const graph = JSON.parse(document.getElementById("graph-content-iframe").contentWindow.statements_graph.replaceAll(/&#39;/g, '"'));
@@ -211,7 +228,7 @@ function App() {
               }}
               loading={cardLoading}
             >
-              {activeTabKey === "entity" ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (activeTabKey === "event" ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : <GraphContent graphPage={graphPage} />)}
+              {activeTabKey === "entity" ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (activeTabKey === "event" ? <EventContent inputText={inputText} /> : <GraphContent graphPage={graphPage} />)}
             </Card>
           </Col>
         </Row>
