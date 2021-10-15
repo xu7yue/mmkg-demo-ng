@@ -403,7 +403,7 @@ mark {
   /*width: 200px;*/
 }
 .row2 {
-  height: 65%;
+  height: 100%;
   width: 100%;
   overflow: auto;
 }
@@ -411,10 +411,10 @@ mark {
   width: 100%;
 }
 .row2 table th {
-  width: 40%;
+  width: 30%;
 }
 .row2 table td {
-  width: 60%;
+  width: 70%;
   padding-left: 15px;
 }
 .row2 h3 {
