@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Layout, Row, Col, Input, Card, Button, Empty, Upload, Image, Spin, message } from 'antd';
+import { Layout, Row, Col, Input, Card, Button, Empty, Upload, Image, Spin, Avatar, message } from 'antd';
 import { CaretRightOutlined, InboxOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import qs from 'qs';
@@ -10,6 +10,7 @@ import './App.less';
 const { Header, Content, Footer } = Layout;
 const { TextArea } = Input;
 const { Dragger } = Upload;
+const { Meta } = Card;
 
 const tabList = [
   { key: 'entity', tab: '实体/关系' },
@@ -22,15 +23,22 @@ function EntityContent(props) {
   let src2 = null;
   if (props.inputText && props.inputText.indexOf("姜糖水可以治疗由风寒导致的感冒") !== -1 && props.inputText.indexOf("中美科研团队在最新一期") !== -1) {
     src = "/sample1.html";
-    src2 = "http://101.200.120.155:8707/"
+    src2 = "/static/ner1.html";
   } else if (props.inputText && props.inputText.indexOf("犯罪嫌疑人程某指") !== -1 && props.inputText.indexOf("澎湃新闻记者从上海市青浦区检察院获悉") !== -1) {
     src = "/sample2.html";
-    src2 = "http://101.200.120.155:8708/"
+    src2 = "/static/ner2.html";
   }
 
   return (
     src === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
       <div className="entity-content-wrapper">
+        <Card className="algorithm-card">
+          <Meta
+            avatar={<Avatar src="/static/logo.png" />}
+            title="算法"
+            description="算法描述"
+          />
+        </Card>
         <iframe className="entity-content-iframe" src={src2}></iframe>
         <iframe className="entity-content-iframe" src={src}></iframe>
       </div>
@@ -49,6 +57,13 @@ function EventContent(props) {
   return (
     src === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
       <div className="event-content-wrapper">
+        <Card className="algorithm-card">
+          <Meta
+            avatar={<Avatar src="/static/logo.png" />}
+            title="算法"
+            description="算法描述"
+          />
+        </Card>
         <iframe className="event-content-iframe" src={src} scrolling="no"></iframe>
       </div>
     )
@@ -72,6 +87,13 @@ function GraphContent(props) {
 
   return (
     <div className="graph-content-wrapper">
+      <Card className="algorithm-card">
+        <Meta
+          avatar={<Avatar src="/static/logo.png" />}
+          title="算法"
+          description="算法描述"
+        />
+      </Card>
       {
         props.graphPage && (
           <div className="graph-content-image-upload-wrapper">
@@ -108,8 +130,8 @@ function GraphContent(props) {
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
-              <p className="ant-upload-text">Click or drag file to this area to upload</p>
-              <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+              <p className="ant-upload-text">图像文本链接</p>
+              <p className="ant-upload-hint">点击上传图片文件</p>
             </Dragger>
             {
               previewImageURL && (
