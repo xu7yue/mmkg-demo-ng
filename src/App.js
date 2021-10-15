@@ -18,17 +18,21 @@ const tabList = [
 ];
 
 function EntityContent(props) {
-  let src = null
+  let src = null;
+  let src2 = null;
   if (props.inputText && props.inputText.indexOf("姜糖水可以治疗由风寒导致的感冒") !== -1 && props.inputText.indexOf("中美科研团队在最新一期") !== -1) {
     src = "/sample1.html";
+    src2 = "http://101.200.120.155:8707/"
   } else if (props.inputText && props.inputText.indexOf("犯罪嫌疑人程某指") !== -1 && props.inputText.indexOf("澎湃新闻记者从上海市青浦区检察院获悉") !== -1) {
     src = "/sample2.html";
+    src2 = "http://101.200.120.155:8708/"
   }
 
   return (
     src === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
-      <div className="event-content-wrapper">
-        <iframe className="event-content-iframe" src={src} scrolling="no"></iframe>
+      <div className="entity-content-wrapper">
+        <iframe className="entity-content-iframe" src={src2}></iframe>
+        <iframe className="entity-content-iframe" src={src}></iframe>
       </div>
     )
   );
@@ -246,7 +250,7 @@ function App() {
               }}
               loading={cardLoading}
             >
-              {activeTabKey === "entity" ? <EntityContent /> : (activeTabKey === "event" ? <EventContent inputText={inputText} /> : <GraphContent graphPage={graphPage} />)}
+              {activeTabKey === "entity" ? <EntityContent inputText={inputText} /> : (activeTabKey === "event" ? <EventContent inputText={inputText} /> : <GraphContent graphPage={graphPage} />)}
             </Card>
           </Col>
         </Row>
