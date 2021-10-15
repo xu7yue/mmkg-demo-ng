@@ -76,7 +76,8 @@ function GraphContent(props) {
                   setUploading(false);
                   const rsp = file.response;
                   if (rsp.code === 0) {
-                    setResults(rsp.data);
+                    const sorted_words = rsp.data.sort((a, b) => b[2] - a[2]);
+                    setResults(sorted_words);
                   } else {
                     console.error(rsp);
                   }
