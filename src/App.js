@@ -53,7 +53,6 @@ function GraphContent(props) {
                 return true;
               }}
               onChange={({ file }) => {
-                console.log("onChange", file);
                 if (file.status === "uploading") {
                   setUploading(true);
                 } else if (file.status === "done") {
@@ -88,7 +87,7 @@ function GraphContent(props) {
                   {
                     results.map(item => (
                       <div className="img-to-text-result-box">
-                        <div className="word">{item[0]}</div>
+                        <div className="word">{item[0]}: </div>
                         <div className="score">{item[2].toFixed(4)}</div>
                       </div>
                     ))                    
@@ -139,7 +138,7 @@ function App() {
     <Layout className="app" style={{ minHeight: '100vh' }}>
       <Header className="app-header">
         <img className="app-logo" src={logo} alt="logo" />
-        <span className="app-titile">标题标题标题标题标题标题标题标题</span>
+        <span className="app-titile">自动化知识发现与图谱构建</span>
       </Header>
       <Content>
         <Row justify="center">
@@ -177,7 +176,7 @@ function App() {
                     }
                   }}
                 >
-                  Run
+                  运行
                 </Button>
               </div>
             </Card>
@@ -217,7 +216,7 @@ function App() {
           </Col>
         </Row>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Footer</Footer>
+      <Footer style={{ textAlign: 'center' }}>2021</Footer>
     </Layout>
   );
 }
