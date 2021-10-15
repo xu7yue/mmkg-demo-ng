@@ -1,47 +1,3 @@
-let fetch_relative_images_timer = null;
-
-function go_to(url) {
-	window.open(url, "_blank");
-}
-
-const show_relative_images = (items) => {	
-	const innerHTML = `
-	<div class="relative-images-wrapper">
-	${
-		items
-			.map((item) => `
-				<div class="image-box" onclick="go_to('${item.image_url}')">
-					<img src="${item.image_url}" />
-					<span>${item._similarity.toFixed(4)}</span>
-				</div>
-			`)
-			.join("\n")
-	}
-	</div>
-	`;
-	document.getElementById("relative_images").innerHTML = innerHTML;
-}
-
-function fetch_relative_images_impl(sent) {
-	fetch(`https://api.kg.sota.wiki/v1/images?text=${encodeURI(sent)}&lang=zh&limit=20&nprobe=16`)
-		.then((rsp) => rsp.text())
-		.then((data) => JSON.parse(data))
-		.then((data) => show_relative_images(data.data));
-}
-
-const fetch_relative_images = function (sent) {
-	console.log("fetch_relative_images", sent);
-	if (fetch_relative_images_timer !== null) {
-		clearTimeout(fetch_relative_images_timer);
-	}
-	fetch_relative_images_timer = setTimeout(function () {
-		fetch_relative_images_timer = null;
-		console.log("do fetching.", sent);
-		fetch_relative_images_impl(sent);
-	}, 1000);
-}
-
-
 comp_graphs = function() {
 	document.getElementById('light').style.display='block';
 	// document.getElementById('fade').style.display='block';
@@ -77,27 +33,27 @@ comp_graphs = function() {
 	  years = null;
 	  last_detail_node = 3;
 
-	  showLink = function(data) {
-	    var html;
-	    html = '';
-	    if (data) {
-	      html += '<table>';
-	      html += '<tr>';
-	      html += "<th>源节点标签</th>";
-	      html += "<td>“" + data.source.name + "”</td>";
-	      html += '</tr>';
-	      html += '<tr>';
-	      html += "<th>目标节点标签</th>";
-	      html += "<td>“" + data.target.name + "”</td>";
-	      html += '</tr>';
-	      html += '<tr>';
-	      html += "<th>链接标签</th>";
-	      html += "<td>“" + (data.name || 'null') + "”</td>";
-	      html += '</tr>';
-	      html += '</table>';
-	    }
-	    return (document.getElementById('explaination-link')).innerHTML = html;
-	  };
+	//   showLink = function(data) {
+	//     var html;
+	//     html = '';
+	//     if (data) {
+	//       html += '<table>';
+	//       html += '<tr>';
+	//       html += "<th>源节点标签</th>";
+	//       html += "<td>“" + data.source.name + "”</td>";
+	//       html += '</tr>';
+	//       html += '<tr>';
+	//       html += "<th>目标节点标签</th>";
+	//       html += "<td>“" + data.target.name + "”</td>";
+	//       html += '</tr>';
+	//       html += '<tr>';
+	//       html += "<th>链接标签</th>";
+	//       html += "<td>“" + (data.name || 'null') + "”</td>";
+	//       html += '</tr>';
+	//       html += '</table>';
+	//     }
+	//     return (document.getElementById('explaination-link')).innerHTML = html;
+	//   };
 
 	  showDetail = function(data) {
 	    var html;
@@ -108,9 +64,6 @@ comp_graphs = function() {
 	      3: '实体节点',
 	      4: '属性节点'
 	    };
-		if (data.category === 1 || data.category === 3) {
-			console.log(data);
-		}
 	    html = '<table>';
 	    html += '<tr>';
 	    html += "<th>类别</th>";
@@ -128,17 +81,6 @@ comp_graphs = function() {
 	    html += "<th valign=top>元组信息</th>";
 	    html += "<td>“" + (data.tuples || '（请将鼠标移至非句子节点用以查看）') + "”</td>";
 	    html += '</tr>';
-		if (data.category === 1 || (data.category === 3 && data.fixed !== true)) {
-			html += "<th valign=top>相关图片</th>";
-			html += "<td><div id=\"relative_images\">Loading...</div></td>";
-			html += '</tr>';
-			if (data.category == 1) {
-				html += "<img src onerror='fetch_relative_images(\"" + data.sent.replaceAll(" ", "") + "\")'>";
-			} else {
-				html += "<img src onerror='fetch_relative_images(\"" + data.name + "\")'>";
-			}
-
-		}
 	    html += '</table>';
 	    return (document.getElementById('explaination-node')).innerHTML = html;
 	  };
@@ -180,7 +122,6 @@ comp_graphs = function() {
 	    last_detail_node = 3;
 	    var cur, nodeG, priority, year;
 	    document.querySelector('svg').innerHTML = '';
-        console.log(graph)
 
 	    cur = currentDataset = graph;
 	    setMetaAnchor();
@@ -200,7 +141,7 @@ comp_graphs = function() {
 	    });
 	    force.start();
 	    showDetail(cur.nodes[last_detail_node]);
-	    showLink();
+	    // showLink();
 	    link = svg.selectAll(".link").data(cur.links);
 	    link.enter().append("line").attr("class", function(d) {
 	      switch (d.type) {
@@ -232,12 +173,12 @@ comp_graphs = function() {
 	      }
 	    });
 
-	    link.on('mouseenter', function(d) {
-	      var _ref2;
-	      if ((_ref2 = d.type) === 'inner' || _ref2 === 'outer') {
-	        return showLink(d);
-	      }
-	    });
+	    // link.on('mouseenter', function(d) {
+	    //   var _ref2;
+	    //   if ((_ref2 = d.type) === 'inner' || _ref2 === 'outer') {
+	    //     return showLink(d);
+	    //   }
+	    // });
 
 	    priority = {
 	      inner: 0,

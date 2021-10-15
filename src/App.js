@@ -119,7 +119,7 @@ function GraphContent(props) {
       {
         props.graphPage === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
           <iframe id="graph-content-iframe" srcDoc={props.graphPage} onLoad={e => {
-            e.target.contentWindow.comp_graphs();
+            setTimeout(() => e.target.contentWindow.comp_graphs(), 1);
           }}></iframe>
         )
       }
