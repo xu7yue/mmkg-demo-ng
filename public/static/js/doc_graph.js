@@ -1,4 +1,5 @@
 let fetch_relative_images_timer = null;
+let is_fetching = false;
 
 function go_to(url) {
 	window.open(url, "_blank");
@@ -26,10 +27,16 @@ function fetch_relative_images_impl(sent) {
 	fetch(`https://api.kg.sota.wiki/v1/images?text=${encodeURI(sent)}&lang=zh&limit=20&nprobe=16`)
 		.then((rsp) => rsp.text())
 		.then((data) => JSON.parse(data))
-		.then((data) => show_relative_images(data.data));
+		.then((data) => show_relative_images(data.data))
+		.finally(() => {
+			is_fetching = false;
+		});
 }
 
 const fetch_relative_images = function (sent) {
+	if (is_fetching) {
+		return;
+	}
 	console.log("fetch_relative_images", sent);
 	if (fetch_relative_images_timer !== null) {
 		clearTimeout(fetch_relative_images_timer);
@@ -37,6 +44,7 @@ const fetch_relative_images = function (sent) {
 	fetch_relative_images_timer = setTimeout(function () {
 		fetch_relative_images_timer = null;
 		console.log("do fetching.", sent);
+		is_fetching = true;
 		fetch_relative_images_impl(sent);
 	}, 1000);
 }
