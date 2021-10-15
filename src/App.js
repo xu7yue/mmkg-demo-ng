@@ -17,6 +17,23 @@ const tabList = [
   { key: 'graph', tab: '知识图谱' },
 ];
 
+function EntityContent(props) {
+  let src = null
+  if (props.inputText && props.inputText.indexOf("姜糖水可以治疗由风寒导致的感冒") !== -1 && props.inputText.indexOf("中美科研团队在最新一期") !== -1) {
+    src = "/sample1.html";
+  } else if (props.inputText && props.inputText.indexOf("犯罪嫌疑人程某指") !== -1 && props.inputText.indexOf("澎湃新闻记者从上海市青浦区检察院获悉") !== -1) {
+    src = "/sample2.html";
+  }
+
+  return (
+    src === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
+      <div className="event-content-wrapper">
+        <iframe className="event-content-iframe" src={src} scrolling="no"></iframe>
+      </div>
+    )
+  );
+}
+
 function EventContent(props) {
   let src = null
   if (props.inputText && props.inputText.indexOf("姜糖水可以治疗由风寒导致的感冒") !== -1 && props.inputText.indexOf("中美科研团队在最新一期") !== -1) {
@@ -229,7 +246,7 @@ function App() {
               }}
               loading={cardLoading}
             >
-              {activeTabKey === "entity" ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (activeTabKey === "event" ? <EventContent inputText={inputText} /> : <GraphContent graphPage={graphPage} />)}
+              {activeTabKey === "entity" ? <EntityContent /> : (activeTabKey === "event" ? <EventContent inputText={inputText} /> : <GraphContent graphPage={graphPage} />)}
             </Card>
           </Col>
         </Row>
