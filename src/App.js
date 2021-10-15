@@ -35,8 +35,8 @@ function EntityContent(props) {
         <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
-            title="算法"
-            description="算法描述"
+            title="OpenKS领域实体识别模块"
+            description="DomainEntityExtractPaddle.entity_lst(Args)"
           />
         </Card>
         <iframe className="entity-content-iframe" src={src2}></iframe>
@@ -90,8 +90,22 @@ function GraphContent(props) {
       <Card className="algorithm-card">
         <Meta
           avatar={<Avatar src="/static/logo.png" />}
-          title="算法"
-          description="算法描述"
+          title="OpenKS概念（上位词）挖掘模块"
+          description="HypernymExtractPaddle.entity2hyper_lst(entity)"
+        />
+      </Card>
+      <Card className="algorithm-card">
+        <Meta
+          avatar={<Avatar src="/static/logo.png" />}
+          title="OpenKS上下位关系检测模块"
+          description="HypernymDiscoveryPaddle(HypernymDiscoveryModel)"
+        />
+      </Card>
+      <Card className="algorithm-card">
+        <Meta
+          avatar={<Avatar src="/static/logo.png" />}
+          title="OpenKS视觉实体链接模块"
+          description="CLIP.forward(image, text)"
         />
       </Card>
       {
