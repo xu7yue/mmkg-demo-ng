@@ -28,7 +28,7 @@ function EventContent(props) {
   return (
     src === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
       <div className="event-content-wrapper">
-        <iframe className="event-content-iframe" src={src}></iframe>
+        <iframe className="event-content-iframe" src={src} scrolling="no"></iframe>
       </div>
     )
   );
