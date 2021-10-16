@@ -60,8 +60,8 @@ function EventContent(props) {
         <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
-            title="算法"
-            description="算法描述"
+            title="OpenKS事件抽取模块"
+            description="EventExtractionPaddle(event)"
           />
         </Card>
         <iframe className="event-content-iframe" src={src} scrolling="no"></iframe>
@@ -105,7 +105,7 @@ function GraphContent(props) {
         <Meta
           avatar={<Avatar src="/static/logo.png" />}
           title="OpenKS视觉实体链接模块"
-          description="CLIP.forward(image, text)"
+          description="VisualEntityLinking(image, text)"
         />
       </Card>
       {
