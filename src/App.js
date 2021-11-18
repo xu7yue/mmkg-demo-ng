@@ -211,8 +211,16 @@ function App() {
   return (
     <Layout className="app" style={{ minHeight: '100vh' }}>
       <Header className="app-header">
-        <img className="app-logo" src={logo} alt="logo" />
-        <span className="app-titile">自动化知识发现与图谱构建</span>
+        <Row justify="center">
+          <Col span={3} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img className="app-logo" src={logo} alt="logo" />
+          </Col>
+          <Col span={18} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <span className="app-titile">自动化知识发现与图谱构建</span>
+          </Col>
+          <Col span={3} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          </Col>
+        </Row>
       </Header>
       <Content>
         <Row justify="center">
