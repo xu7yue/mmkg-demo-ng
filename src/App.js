@@ -114,7 +114,7 @@ function GraphContent(props) {
             <Dragger
               name="image"
               multiple={false}
-              action="https://api.kg.sota.wiki/v1/mmkg_demo"
+              action="https://api0.mmkg.sota.wiki/v1/mmkg_demo"
               data={() => ({sents_form: JSON.stringify(getWords())})}
               showUploadList={false}
               beforeUpload={file => {
@@ -164,7 +164,7 @@ function GraphContent(props) {
                         <div className="word">{item[0]}: </div>
                         <div className="score">{item[2].toFixed(4)}</div>
                       </div>
-                    ))                    
+                    ))
                   }
                 </div>
               )
@@ -181,7 +181,7 @@ function GraphContent(props) {
       }
       {
         props.graphPage && (
-          <div id="div0">			
+          <div id="div0">
             <div id="bigcilin">
               <div id="entity0"></div>
               <div id="entity1"></div>
@@ -197,7 +197,7 @@ function GraphContent(props) {
 const defaultText = "姜糖水可以治疗由风寒导致的感冒。中美科研团队在最新一期《细胞》杂志撰文称, 他们制造出首个由人类细胞和猴子细胞共同组成的胚胎, 这些嵌合体有助科学家进一步在其它物种体内（如猪）培育出人体组织, 但最新研究也引发了一些伦理争议。";
 
 const fetchGraphPage = async (text) => {
-  return await axios.post("https://kg.sota.wiki/legacy/structuring", qs.stringify({ text: text }));
+  return await axios.post("https://api0.mmkg.sota.wiki/legacy/structuring", qs.stringify({ text: text }));
 };
 
 function App() {
@@ -298,7 +298,7 @@ function App() {
           </Col>
         </Row>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>2021</Footer>
+      <Footer style={{ textAlign: 'center' }}>2023</Footer>
     </Layout>
   );
 }

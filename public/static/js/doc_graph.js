@@ -24,7 +24,7 @@ const show_relative_images = (items) => {
 }
 
 function fetch_relative_images_impl(sent) {
-	fetch(`https://api.kg.sota.wiki/v1/images?text=${encodeURI(sent)}&lang=zh&limit=20&nprobe=16`)
+	fetch(`https://api0.mmkg.sota.wiki/v1/images?text=${encodeURI(sent)}&lang=zh&limit=20&nprobe=16`)
 		.then((rsp) => rsp.text())
 		.then((data) => JSON.parse(data))
 		.then((data) => show_relative_images(data.data))

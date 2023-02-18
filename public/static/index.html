@@ -229,7 +229,7 @@
 				// form_data.append("sents", JSON.stringify(sents));
 				form_data.append("image", file);
 
-				fetch("https://api.kg.sota.wiki/v1/mmkg_demo?sents=" + encodeURI(JSON.stringify(sents)), { method: "POST", body: form_data})
+				fetch("https://api0.mmkg.sota.wiki/v1/mmkg_demo?sents=" + encodeURI(JSON.stringify(sents)), { method: "POST", body: form_data})
 					.then(rsp => rsp.json())
 					.then(data => show_words(data.data));
 			}
