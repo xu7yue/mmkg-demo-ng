@@ -209,7 +209,7 @@ function App() {
   const [graphPageLastText, setGraphPageLastText] = useState('');
 
   return (
-    <Layout className="app" style={{ minHeight: '100vh' }}>
+    <Layout className="app" style={{ minHeight: '100vh' , backgroundColor : '#FFFFFF'}}>
       <Header className="app-header">
         <Row justify="center">
           <Col span={3} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -223,9 +223,9 @@ function App() {
         </Row>
       </Header>
       <Content>
-        <Row justify="center">
-          <Col span={22}>
-            <Card title="输入文本">
+        <Row justify="center" style={{margin : '10px'}}>
+          <Col span={16}>
+            <Card title="输入文本" style={{ borderWidth : '2px', borderColor: '#CCCCCC', borderRadius : '10px', boxShadow: '4px 4px #CCCCCC' }}>
               <TextArea
                 showCount
                 rows={6}
@@ -264,10 +264,9 @@ function App() {
             </Card>
           </Col>
         </Row>
-        <br />
-        <Row justify="center">
-          <Col span={22}>
-            <Card
+        <Row justify="center" style={{margin : '10px'}}>
+          <Col span={16}>
+            <Card style={{  borderWidth : '2px', borderColor: '#CCCCCC', borderRadius : '10px', boxShadow: '4px 4px #CCCCCC'}}
               className="results-card-wrapper"
               title="结果"
               tabList={tabList}
@@ -298,7 +297,7 @@ function App() {
           </Col>
         </Row>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>2023</Footer>
+      <Footer style={{ textAlign: 'center', backgroundColor : '#FFFFFF', color : '#999999' }}>Copyright © 2022量知数据研发出品</Footer>
     </Layout>
   );
 }
