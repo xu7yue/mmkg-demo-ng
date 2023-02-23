@@ -1,12 +1,13 @@
-let fetch_relative_images_timer = null;
-let is_fetching = false;
+let fetch_relative_images_timer_web = null;
+let fetch_relative_images_timer_local = null;
+let is_fetching_web = false;
+let is_fetching_local = false;
 
 function go_to(url) {
 	window.open(url, "_blank");
 }
 
-const show_relative_images = (items) => {	
-	console.log('items', items);
+const show_local_relative_images = (items) => {	
 	const innerHTML = `
 	<div class="relative-images-wrapper">
 	${
@@ -21,45 +22,103 @@ const show_relative_images = (items) => {
 	}
 	</div>
 	`;
-	document.getElementById("relative_images").innerHTML = innerHTML;
+	document.getElementById("local_relative_images").innerHTML = innerHTML;
 }
 
-function fetch_relative_images_impl(sent) {
-	// fetch(`https://api0.mmkg.sota.wiki/v1/images?text=${encodeURI(sent)}&lang=zh&limit=20&nprobe=16`)
-	// 	.then((rsp) => rsp.text())
-	// 	.then((data) => JSON.parse(data))
-	// 	.then((data) => show_relative_images(data.data))
-	// 	.finally(() => {
-	// 		is_fetching = false;
-	// 	});
-	console.log(sent)
-	if(sent == "其它物种体内") {
-		console.log('1234')
-		show_relative_images(
+const show_web_relative_images = (items) => {	
+	const innerHTML = `
+	<div class="relative-images-wrapper">
+	${
+		items
+			.map((item) => `
+				<div class="image-box" onclick="go_to('${item.image_url}')">
+					<img src="${item.image_url}" />
+					<span>${item._similarity.toFixed(4)}</span>
+				</div>
+			`)
+			.join("\n")
+	}
+	</div>
+	`;
+	document.getElementById("web_relative_images").innerHTML = innerHTML;
+}
+
+function fetch_local_relative_images_impl(sent) {
+	if(sent == "窃贼") {
+		show_local_relative_images(
 			[
 				{
-					'_similarity': 0.9999999999999999,
-					'image_url' : './static/logo.png'
+					'_similarity': 0.88,
+					'image_url' : './static/image2_2.png'
 				}
 			]
 		)
 	}
-	is_fetching = false;
+	else if(sent == "纪梵希商店") {
+		show_local_relative_images(
+			[
+				{
+					'_similarity': 0.66,
+					'image_url' : './static/shop.png'
+				}
+			]
+		)
+	}
+	is_fetching_local = false;
 }
 
-const fetch_relative_images = function (sent) {
-	if (is_fetching) {
-		return;
+function fetch_web_relative_images_impl(sent) {
+	if(sent == "窃贼") {
+		show_web_relative_images(
+			[
+				{
+					'_similarity': 0.89999,
+					'image_url' : './static/web1_1.png'
+				},
+				{
+					'_similarity': 0.89999,
+					'image_url' : './static/web1_2.png'
+				},
+			]
+		)
 	}
-	console.log("fetch_relative_images", sent);
-	if (fetch_relative_images_timer !== null) {
-		clearTimeout(fetch_relative_images_timer);
+	else if(sent == "纪梵希商店") {
+		show_web_relative_images(
+			[
+				{
+					'_similarity': 0.8999999999999,
+					'image_url' : './static/web2_1.png'
+				},
+				{
+					'_similarity': 0.799999999999999,
+					'image_url' : './static/web2_2.png'
+				},
+			]
+		)
 	}
-	fetch_relative_images_timer = setTimeout(function () {
-		fetch_relative_images_timer = null;
+	is_fetching_web = false;
+}
+
+const fetch_local_relative_images = function (sent) {
+	if (fetch_relative_images_timer_local !== null) {
+		clearTimeout(fetch_relative_images_timer_local);
+	}
+	console.log("0do fetching.", sent);
+	fetch_relative_images_timer_local = setTimeout(function () {
+		fetch_relative_images_timer_local = null;
+		console.log("1do fetching.", sent);
+		fetch_local_relative_images_impl(sent);
+	}, 1000);
+}
+
+const fetch_web_relative_images = function (sent) {
+	if (fetch_relative_images_timer_web !== null) {
+		clearTimeout(fetch_relative_images_timer_web);
+	}
+	fetch_relative_images_timer_web = setTimeout(function () {
+		fetch_relative_images_timer_web = null;
 		console.log("do fetching.", sent);
-		is_fetching = true;
-		fetch_relative_images_impl(sent);
+		fetch_web_relative_images_impl(sent);
 	}, 1000);
 }
 
@@ -150,13 +209,22 @@ comp_graphs = function() {
 	    html += "<td>“" + (data.tuples || '（请将鼠标移至非句子节点用以查看）') + "”</td>";
 	    html += '</tr>';
 		if (data.category === 1 || (data.category === 3 && data.fixed !== true)) {
-			html += "<th valign=top>相关图片</th>";
-			html += "<td><div id=\"relative_images\">Loading...</div></td>";
+			html += "<th valign=top>视频相关图片</th>";
+			html += "<td><div id=\"local_relative_images\">Loading...</div></td>";
 			html += '</tr>';
 			if (data.category == 1) {
-				html += "<img src onerror='fetch_relative_images(\"" + data.sent.replaceAll(" ", "") + "\")'>";
+				html += "<img src onerror='fetch_local_relative_images(\"" + data.sent.replaceAll(" ", "") + "\")'>";
 			} else {
-				html += "<img src onerror='fetch_relative_images(\"" + data.name + "\")'>";
+				html += "<img src onerror='fetch_local_relative_images(\"" + data.name + "\")'>";
+			}
+
+			html += "<th valign=top>网络相关图片</th>";
+			html += "<td><div id=\"web_relative_images\">Loading...</div></td>";
+			html += '</tr>';
+			if (data.category == 1) {
+				html += "<img src onerror='fetch_web_relative_images(\"" + data.sent.replaceAll(" ", "") + "\")'>";
+			} else {
+				html += "<img src onerror='fetch_web_relative_images(\"" + data.name + "\")'>";
 			}
 
 		}

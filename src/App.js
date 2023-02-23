@@ -77,8 +77,8 @@ function EntityContent(props) {
         <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
-            title="通用信息抽取模型"
-            description=""
+            title="领域命名实体识别"
+            description="SocialEntityRecognition"
           />
         </Card>
         <iframe className="entity-content-iframe" src={src2}></iframe>
@@ -215,12 +215,12 @@ function EventContent(props) {
         <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
-            title="OpenKS事件抽取模块"
-            description="EventExtractionPaddle(event)"
+            title="事件抽取算法EventExtraction"
+            description="event_extraction"
           />
         </Card>
         <iframe className="event-content-iframe" src={src} scrolling="no"></iframe>
-        <Card className="algorithm-card">
+        {/* <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
             title="图片关系识别"
@@ -238,7 +238,7 @@ function EventContent(props) {
             <Meta title={"事件抽取 : "+ eve} description={text} />
           </Card>
           </Col>
-        </Row>
+        </Row> */}
       </div>
     )
   );
@@ -264,21 +264,14 @@ function GraphContent(props) {
       <Card className="algorithm-card">
         <Meta
           avatar={<Avatar src="/static/logo.png" />}
-          title="OpenKS概念（上位词）挖掘模块"
-          description="HypernymExtractPaddle.entity2hyper_lst(entity)"
+          title="挖掘上位词"
+          description="hypernym_extract"
         />
       </Card>
       <Card className="algorithm-card">
         <Meta
           avatar={<Avatar src="/static/logo.png" />}
-          title="OpenKS上下位关系检测模块"
-          description="HypernymDiscoveryPaddle(HypernymDiscoveryModel)"
-        />
-      </Card>
-      <Card className="algorithm-card">
-        <Meta
-          avatar={<Avatar src="/static/logo.png" />}
-          title="OpenKS视觉实体链接模块"
+          title="视觉-文本实体链接"
           description="VisualEntityLinking(image, text)"
         />
       </Card>
@@ -432,7 +425,7 @@ function App() {
                     setCardLoading(false);
                 }
               }
-              >Submit</Button>
+              >爬取信息</Button>
               </Input.Group>
             </Row>
             { inputText &&
@@ -468,8 +461,17 @@ function App() {
                   shape="round"
                   icon={<CaretRightOutlined />}
                   onClick={
-                    () => {
+                 async () => {
                       setCardLoading(true);
+                      try {
+                          const rsp = await fetchGraphPage(inputText);
+                          setGraphPageLastText(inputText);
+                          setGraphPage(rsp.data);
+                        } catch (e) {
+                          console.error(e);
+                          setGraphPageLastText('');
+                          setGraphPage(null);
+                      }
                     }
                   }
                 >
@@ -487,18 +489,8 @@ function App() {
               title="结果"
               tabList={tabList}
               activeTabKey={activeTabKey}
-              onTabChange={async (key) => {
-                  if (key === "graph" && graphPageLastText !== inputText) {
-                    try {
-                      const rsp = await fetchGraphPage(inputText);
-                      setGraphPageLastText(inputText);
-                      setGraphPage(rsp.data);
-                    } catch (e) {
-                      console.error(e);
-                      setGraphPageLastText('');
-                      setGraphPage(null);
-                    }
-                  }
+              onTabChange={ (key) => {
+
                   setActiveTabKey(key)
               }}
             >
