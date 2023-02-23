@@ -6,6 +6,7 @@ function go_to(url) {
 }
 
 const show_relative_images = (items) => {	
+	console.log('items', items);
 	const innerHTML = `
 	<div class="relative-images-wrapper">
 	${
@@ -24,13 +25,26 @@ const show_relative_images = (items) => {
 }
 
 function fetch_relative_images_impl(sent) {
-	fetch(`https://api0.mmkg.sota.wiki/v1/images?text=${encodeURI(sent)}&lang=zh&limit=20&nprobe=16`)
-		.then((rsp) => rsp.text())
-		.then((data) => JSON.parse(data))
-		.then((data) => show_relative_images(data.data))
-		.finally(() => {
-			is_fetching = false;
-		});
+	// fetch(`https://api0.mmkg.sota.wiki/v1/images?text=${encodeURI(sent)}&lang=zh&limit=20&nprobe=16`)
+	// 	.then((rsp) => rsp.text())
+	// 	.then((data) => JSON.parse(data))
+	// 	.then((data) => show_relative_images(data.data))
+	// 	.finally(() => {
+	// 		is_fetching = false;
+	// 	});
+	console.log(sent)
+	if(sent == "其它物种体内") {
+		console.log('1234')
+		show_relative_images(
+			[
+				{
+					'_similarity': 0.9999999999999999,
+					'image_url' : './static/logo.png'
+				}
+			]
+		)
+	}
+	is_fetching = false;
 }
 
 const fetch_relative_images = function (sent) {
@@ -345,6 +359,7 @@ comp_graphs = function() {
 
 	  var offset
 	  graph = scigraph;
+
 
 	  update();
 

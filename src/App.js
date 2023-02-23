@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Layout, Row, Col, Input, Card, Button, Empty, Upload, Image, Spin, Avatar, message } from 'antd';
+import React, { useState } from 'react';
+import { Layout, Row, Col, Input, Card, Button, Empty, Upload, Image, Spin, Avatar, message} from 'antd';
+
 import { CaretRightOutlined, InboxOutlined } from '@ant-design/icons';
 import axios from 'axios';
 import qs from 'qs';
@@ -21,13 +22,17 @@ const tabList = [
 function EntityContent(props) {
   let src = null;
   let src2 = null;
-  if (props.inputText && props.inputText.indexOf("姜糖水可以治疗由风寒导致的感冒") !== -1 && props.inputText.indexOf("中美科研团队在最新一期") !== -1) {
+  let src3 = null;
+  if (props.inputText && props.inputText.indexOf("一群武装劫匪") !== -1) {
     src = "/sample1.html";
     src2 = "/static/ner1.html";
-  } else if (props.inputText && props.inputText.indexOf("犯罪嫌疑人程某指") !== -1 && props.inputText.indexOf("澎湃新闻记者从上海市青浦区检察院获悉") !== -1) {
+    src3 = "/static/image1.png"
+  } else if (props.inputText && props.inputText.indexOf("警方正在追捕四名小偷")) {
     src = "/sample2.html";
     src2 = "/static/ner2.html";
+    src3 = ''
   }
+  
 
   return (
     src === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
@@ -41,17 +46,103 @@ function EntityContent(props) {
         </Card>
         <iframe className="entity-content-iframe" src={src2}></iframe>
         <iframe className="entity-content-iframe" src={src}></iframe>
+        
+        <Card className="algorithm-card">
+          <Meta
+            avatar={<Avatar src="/static/logo.png" />}
+            title="图片实体识别"
+            description="DomainEntityExtractPaddle.entity_lst(Args)"
+          />
+        </Card>
+        <Row gutter={10}>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src3} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src3} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src3} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+        </Row>
+        
+          <br/><br/><br/>
+        <Card className="algorithm-card">
+          <Meta
+            avatar={<Avatar src="/static/logo.png" />}
+            title="图片关系识别"
+            description="DomainEntityExtractPaddle.entity_lst(Args)"
+          />
+        </Card>
+        <Row gutter={10}>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src3} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src3} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src3} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+        </Row>
+
       </div>
     )
   );
 }
 
 function EventContent(props) {
-  let src = null
-  if (props.inputText && props.inputText.indexOf("姜糖水可以治疗由风寒导致的感冒") !== -1 && props.inputText.indexOf("中美科研团队在最新一期") !== -1) {
-    src = "https://local.yfint.yunfutech.com/casetext/1";
-  } else if (props.inputText && props.inputText.indexOf("犯罪嫌疑人程某指") !== -1 && props.inputText.indexOf("澎湃新闻记者从上海市青浦区检察院获悉") !== -1) {
-    src = "https://local.yfint.yunfutech.com/casetext/2";
+  let src = null;
+  let src2 = null;
+
+  if (props.inputText && props.inputText.indexOf("一群武装劫匪") !== -1) {
+    src = "/static/event1.html";
+    src2 = "/static/image1.png";
+  } else if (props.inputText && props.inputText.indexOf("警方正在追捕四名小偷")) {
+    src = "/static/event2.html";
+    src2 = "";
   }
 
   return (
@@ -65,6 +156,45 @@ function EventContent(props) {
           />
         </Card>
         <iframe className="event-content-iframe" src={src} scrolling="no"></iframe>
+        <Card className="algorithm-card">
+          <Meta
+            avatar={<Avatar src="/static/logo.png" />}
+            title="图片关系识别"
+            description="DomainEntityExtractPaddle.entity_lst(Args)"
+          />
+        </Card>
+        <Row gutter={10}>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src2} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src2} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+          <Col span={8}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={src2} />}
+            >
+            <Meta title="Europe Street beat" description="www.instagram.com" />
+          </Card>
+          </Col>
+        </Row>
       </div>
     )
   );
@@ -194,18 +324,17 @@ function GraphContent(props) {
   );
 }
 
-const defaultText = "姜糖水可以治疗由风寒导致的感冒。中美科研团队在最新一期《细胞》杂志撰文称, 他们制造出首个由人类细胞和猴子细胞共同组成的胚胎, 这些嵌合体有助科学家进一步在其它物种体内（如猪）培育出人体组织, 但最新研究也引发了一些伦理争议。";
-
 const fetchGraphPage = async (text) => {
   return await axios.post("https://api0.mmkg.sota.wiki/legacy/structuring", qs.stringify({ text: text }));
 };
 
 function App() {
-  const [inputText, setInputText] = useState(defaultText);
+  const [inputText, setInputText] = useState('');
   const [activeTabKey, setActiveTabKey] = useState('entity');
   const [cardLoading, setCardLoading] = useState(false);
   const [graphPage, setGraphPage] = useState(null);
-
+  const [videoURL, setVideoURL] = useState("");
+  const [searchURL, setSearchURL] = useState("");
   const [graphPageLastText, setGraphPageLastText] = useState('');
 
   return (
@@ -223,16 +352,59 @@ function App() {
         </Row>
       </Header>
       <Content>
-        <Row justify="center" style={{margin : '10px'}}>
+        <Row justify="center" style={{margin : '10px', display: 'flex'}}>
           <Col span={16}>
-            <Card title="输入文本" style={{ borderWidth : '2px', borderColor: '#CCCCCC', borderRadius : '10px', boxShadow: '4px 4px #CCCCCC' }}>
-              <TextArea
-                showCount
-                rows={6}
-                maxLength={1000}
-                value={inputText}
-                onChange={e => setInputText(e.target.value)}
-              ></TextArea>
+            <Card title="输入多模态信息" style={{ borderWidth : '2px', borderColor: '#CCCCCC', borderRadius : '10px', boxShadow: '4px 4px #CCCCCC' }}>
+            <Row justify='center' style={
+              {
+                display: 'flex',
+                justifyContent: 'center',
+                marginBottom: '10px',
+              }
+            }>
+            <Input.Group compact>
+              <Input
+                style={{
+                  width: 'calc(100% - 100px)',
+                }}
+                placeholder='请输入爬取页面网址'
+                onChange={e => setSearchURL(e.target.value)}
+              />
+              <Button type="primary" 
+                style={{
+                  width: '100px',
+                }}
+                onClick={
+                  () => {
+                    if(searchURL.indexOf('1') != -1) {
+                      setVideoURL('/static/video.mp4')
+                      setInputText('曼哈顿 SOHO (WABC)——警方正在追捕四名小偷，他们从 SoHo 的一家商店偷走了大约 50,000 美元的商品，而此时该社区的入室盗窃案呈上升趋势。上周六早上 7 点 30 分左右，几个人用锤子闯入了位于 SoHo 格林街 94 号的纪梵希商店。这就像一场私人购物活动，但没有人付钱。在商店开门前几个小时，小偷就把纪梵希商店完全占为己有')
+                    }
+                    else if(searchURL.indexOf('2') != -1) {
+                      setVideoURL('/static/video2.mp4')
+                      setInputText('警方称，周五，一群武装劫匪从新泽西州的一家珠宝店盗窃。据当局称，涉嫌窃贼戴着口罩和手套，于晚上 7 点 45 分左右尾随一名员工进入商店前门。犯罪嫌疑人将员工逼到地板上，砸碎了几个玻璃陈列柜，并在不到一分钟内逃离了商店，然后将里面的珠宝拿走了。')
+                    }
+                }
+              }
+              >Submit</Button>
+            </Input.Group>
+            </Row>
+            <Row justify="center" gutter={16} >
+              <Col span={12}>
+                <TextArea
+                  showCount
+                  maxLength={1000}
+                  value={inputText}
+                  Rows={5}
+                  onChange={e => setInputText(e.target.value)}
+                ></TextArea>
+              </Col>
+              <Col span={12}>
+                <video src={videoURL} type="video/mp4" width={'100%'} height={'100%'} controls Rows={10}>
+                </video>
+              </Col>
+            </Row>
+            
               <br />
               <div className="btn-run-wrapper">
                 <Button
@@ -240,23 +412,11 @@ function App() {
                   size="large"
                   shape="round"
                   icon={<CaretRightOutlined />}
-                  loading={cardLoading}
-                  onClick={async () => {
-                    if (activeTabKey === "graph") {
+                  onClick={
+                    () => {
                       setCardLoading(true);
-                      try {
-                        const rsp = await fetchGraphPage(inputText);
-                        setGraphPageLastText(inputText);
-                        setGraphPage(rsp.data);
-                      } catch (e) {
-                        console.error(e);
-                        setGraphPageLastText('');
-                        setGraphPage(null);
-                      } finally {
-                        setCardLoading(false);
-                      }
                     }
-                  }}
+                  }
                 >
                   运行
                 </Button>
@@ -266,15 +426,13 @@ function App() {
         </Row>
         <Row justify="center" style={{margin : '10px'}}>
           <Col span={16}>
-            <Card style={{  borderWidth : '2px', borderColor: '#CCCCCC', borderRadius : '10px', boxShadow: '4px 4px #CCCCCC'}}
+            { <Card style={{  borderWidth : '2px', borderColor: '#CCCCCC', borderRadius : '10px', boxShadow: '4px 4px #CCCCCC'}}
               className="results-card-wrapper"
               title="结果"
               tabList={tabList}
               activeTabKey={activeTabKey}
               onTabChange={async (key) => {
-                if (!cardLoading) {
                   if (key === "graph" && graphPageLastText !== inputText) {
-                    setCardLoading(true);
                     try {
                       const rsp = await fetchGraphPage(inputText);
                       setGraphPageLastText(inputText);
@@ -283,17 +441,13 @@ function App() {
                       console.error(e);
                       setGraphPageLastText('');
                       setGraphPage(null);
-                    } finally {
-                      setCardLoading(false);
                     }
                   }
-                  setActiveTabKey(key);
-                }
+                  setActiveTabKey(key)
               }}
-              loading={cardLoading}
             >
-              {activeTabKey === "entity" ? <EntityContent inputText={inputText} /> : (activeTabKey === "event" ? <EventContent inputText={inputText} /> : <GraphContent graphPage={graphPage} />)}
-            </Card>
+              {activeTabKey === "entity" ? inputText && cardLoading && <EntityContent inputText={inputText} /> : (activeTabKey === "event" ? inputText && cardLoading && <EventContent inputText={inputText} /> : inputText && cardLoading && <GraphContent graphPage={graphPage} />)}
+            </Card>}
           </Col>
         </Row>
       </Content>
