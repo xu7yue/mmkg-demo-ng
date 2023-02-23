@@ -23,14 +23,51 @@ function EntityContent(props) {
   let src = null;
   let src2 = null;
   let src3 = null;
+  let src4 = null;
+  let src5 = null;
+  let src6 = null;
+  let rel1 = null;
+  let rel2 = null;
+  let rel3 = null;
+  let rel4 = null;
+  let text = null;
+  let rel_text = {};
   if (props.inputText && props.inputText.indexOf("一群武装劫匪") !== -1) {
     src = "/sample1.html";
     src2 = "/static/ner1.html";
-    src3 = "/static/image1.png"
+    src3 = "/static/image2_1.png";
+    src4 = "/static/image2_2.png";
+    src5 = "/static/image2_3.png";
+    src6 = "/static/image2_4.png";
+    rel1 = "/static/rel2_1.png";
+    rel2 = "/static/rel2_2.png";
+    rel3 = "/static/rel2_3.png";
+    rel4 = "/static/rel2_4.png";
+    text = ' Chair'
+    rel_text = [
+      ['A Human sits on the chair.', 'sit on'],
+      ['A Human sits on the chair.', 'sit on'],
+      ['A Human holds on a gun.', 'hold on'],
+      ['A Human knocks at a table.', 'knocks at']
+    ]
   } else if (props.inputText && props.inputText.indexOf("警方正在追捕四名小偷")) {
     src = "/sample2.html";
     src2 = "/static/ner2.html";
-    src3 = ''
+    src3 = "/static/image1.png";
+    src4 = "/static/image2.png";
+    src5 = "/static/image3.png";
+    src6 = "/static/image4.png";
+    rel1 = "/static/rel1.png";
+    rel2 = "/static/rel2.png";
+    rel3 = "/static/rel3.png";
+    rel4 = "/static/rel4.png";
+    text = ' Bag'
+    rel_text = [
+      ['A Human stands on the floor.', 'stand on'],
+      ['A Human holds on a bag.', 'hold on'],
+      ['A bag is on the shelf.', 'on'],
+      ['A Human is on the floor.', 'on']
+    ]
   }
   
 
@@ -40,8 +77,8 @@ function EntityContent(props) {
         <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
-            title="OpenKS领域实体识别模块"
-            description="DomainEntityExtractPaddle.entity_lst(Args)"
+            title="通用信息抽取模型"
+            description=""
           />
         </Card>
         <iframe className="entity-content-iframe" src={src2}></iframe>
@@ -50,39 +87,50 @@ function EntityContent(props) {
         <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
-            title="图片实体识别"
-            description="DomainEntityExtractPaddle.entity_lst(Args)"
+            title="视觉实体识别"
+            description="mmkg-visual-entity-recognition"
           />
         </Card>
         <Row gutter={10}>
-          <Col span={8}>
+          <Col span={6}>
           <Card
             style={{
               width: '100%',
+              height: '100%',
             }}
             cover={<img alt="example" src={src3} />}
             >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
+            <Meta title="实体识别 : Human" description="Human" />
           </Card>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
           <Card
             style={{
-              width: '100%',
+              height: '100%',
             }}
-            cover={<img alt="example" src={src3} />}
+            cover={<img alt="example" src={src4} />}
             >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
+            <Meta title="实体识别 : Human" description="Human" />
           </Card>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
           <Card
             style={{
-              width: '100%',
+              height: '100%',
             }}
-            cover={<img alt="example" src={src3} />}
+            cover={<img alt="example" src={src5} />}
             >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
+            <Meta title="实体识别 : Human" description="Human" />
+          </Card>
+          </Col>
+          <Col span={6}>
+          <Card
+            style={{
+              height: '100%',
+            }}
+            cover={<img alt="example" src={src6} />}
+            >
+            <Meta title={ "实体识别 :" + text } description="Human" />
           </Card>
           </Col>
         </Row>
@@ -91,39 +139,49 @@ function EntityContent(props) {
         <Card className="algorithm-card">
           <Meta
             avatar={<Avatar src="/static/logo.png" />}
-            title="图片关系识别"
-            description="DomainEntityExtractPaddle.entity_lst(Args)"
+            title="视觉关系检测"
+            description="mmkg-vrd"
           />
         </Card>
         <Row gutter={10}>
-          <Col span={8}>
+          <Col span={6}>
           <Card
             style={{
               width: '100%',
             }}
-            cover={<img alt="example" src={src3} />}
+            cover={<img alt="example" src={rel2} />}
             >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
+            <Meta title={"关系抽取 : " + rel_text[0][1]} description={rel_text[0][0]} />
           </Card>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
           <Card
             style={{
               width: '100%',
             }}
-            cover={<img alt="example" src={src3} />}
+            cover={<img alt="example" src={rel1} />}
             >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
+            <Meta title={"关系抽取 : " + rel_text[1][1]} description={rel_text[1][0]} />
           </Card>
           </Col>
-          <Col span={8}>
+          <Col span={6}>
           <Card
             style={{
               width: '100%',
             }}
-            cover={<img alt="example" src={src3} />}
+            cover={<img alt="example" src={rel4} />}
             >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
+            <Meta title={"关系抽取 : " + rel_text[2][1]} description={rel_text[2][0]} />
+          </Card>
+          </Col>
+          <Col span={6}>
+          <Card
+            style={{
+              width: '100%',
+            }}
+            cover={<img alt="example" src={rel3} />}
+            >
+            <Meta title={"关系抽取 : " + rel_text[3][1]} description={rel_text[3][0]} />
           </Card>
           </Col>
         </Row>
@@ -136,13 +194,19 @@ function EntityContent(props) {
 function EventContent(props) {
   let src = null;
   let src2 = null;
+  let text = null;
+  let eve = null;
 
   if (props.inputText && props.inputText.indexOf("一群武装劫匪") !== -1) {
-    src = "/static/event1.html";
-    src2 = "/static/image1.png";
-  } else if (props.inputText && props.inputText.indexOf("警方正在追捕四名小偷")) {
     src = "/static/event2.html";
-    src2 = "";
+    src2 = "/static/steal2.png";
+    text = "Some theives are robbing in the shop."
+    eve = "rob"
+  } else if (props.inputText && props.inputText.indexOf("警方正在追捕四名小偷")) {
+    src = "/static/event1.html";
+    src2 = "/static/event1.png";
+    text = "Some theives are stealing in the shop."
+    eve = "steal"
   }
 
   return (
@@ -164,34 +228,14 @@ function EventContent(props) {
           />
         </Card>
         <Row gutter={10}>
-          <Col span={8}>
+          <Col span={12}>
           <Card
             style={{
               width: '100%',
             }}
             cover={<img alt="example" src={src2} />}
             >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-          </Col>
-          <Col span={8}>
-          <Card
-            style={{
-              width: '100%',
-            }}
-            cover={<img alt="example" src={src2} />}
-            >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
-          </Card>
-          </Col>
-          <Col span={8}>
-          <Card
-            style={{
-              width: '100%',
-            }}
-            cover={<img alt="example" src={src2} />}
-            >
-            <Meta title="Europe Street beat" description="www.instagram.com" />
+            <Meta title={"事件抽取 : "+ eve} description={text} />
           </Card>
           </Col>
         </Row>
@@ -238,7 +282,7 @@ function GraphContent(props) {
           description="VisualEntityLinking(image, text)"
         />
       </Card>
-      {
+      {/* {
         props.graphPage && (
           <div className="graph-content-image-upload-wrapper">
             <Dragger
@@ -301,7 +345,7 @@ function GraphContent(props) {
             }
           </div>
         )
-      }
+      } */}
       {
         props.graphPage === null ? <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} /> : (
           <iframe id="graph-content-iframe" srcDoc={props.graphPage} onLoad={e => {
@@ -352,7 +396,7 @@ function App() {
         </Row>
       </Header>
       <Content>
-        <Row justify="center" style={{margin : '10px', display: 'flex'}}>
+        <Row justify="center" style={{margin : '10px'}}>
           <Col span={16}>
             <Card title="输入多模态信息" style={{ borderWidth : '2px', borderColor: '#CCCCCC', borderRadius : '10px', boxShadow: '4px 4px #CCCCCC' }}>
             <Row justify='center' style={
@@ -362,7 +406,7 @@ function App() {
                 marginBottom: '10px',
               }
             }>
-            <Input.Group compact>
+              <Input.Group compact>
               <Input
                 style={{
                   width: 'calc(100% - 100px)',
@@ -370,7 +414,8 @@ function App() {
                 placeholder='请输入爬取页面网址'
                 onChange={e => setSearchURL(e.target.value)}
               />
-              <Button type="primary" 
+              <Button 
+                type="primary" 
                 style={{
                   width: '100px',
                 }}
@@ -384,29 +429,39 @@ function App() {
                       setVideoURL('/static/video2.mp4')
                       setInputText('警方称，周五，一群武装劫匪从新泽西州的一家珠宝店盗窃。据当局称，涉嫌窃贼戴着口罩和手套，于晚上 7 点 45 分左右尾随一名员工进入商店前门。犯罪嫌疑人将员工逼到地板上，砸碎了几个玻璃陈列柜，并在不到一分钟内逃离了商店，然后将里面的珠宝拿走了。')
                     }
+                    setCardLoading(false);
                 }
               }
               >Submit</Button>
-            </Input.Group>
+              </Input.Group>
             </Row>
-            <Row justify="center" gutter={16} >
-              <Col span={12}>
-                <TextArea
-                  showCount
-                  maxLength={1000}
-                  value={inputText}
-                  Rows={5}
-                  onChange={e => setInputText(e.target.value)}
-                ></TextArea>
-              </Col>
-              <Col span={12}>
-                <video src={videoURL} type="video/mp4" width={'100%'} height={'100%'} controls Rows={10}>
-                </video>
-              </Col>
-            </Row>
-            
+            { inputText &&
+              <Row justify="center" gutter={16} Rows={'10px'} style={
+                {
+                  display: 'flex',
+                  justifyContent: 'center',
+                  marginBottom: '10px',
+                }} >
+                <Col span={12}>
+                  <TextArea
+                    maxLength={1000}
+                    value={inputText}
+                    width={'100%'}
+                    height={'100%'}
+                    bordered={false}
+                    autoSize={{ minRows: 2, maxRows: 10 }}
+                    onChange={e => setInputText(e.target.value)}
+                  ></TextArea>
+                </Col>
+                <Col span={12}>
+                  <video src={videoURL} type="video/mp4" width={'100%'} controls  Rows={"10%"}>
+                  </video>
+                </Col>
+              </Row>
+              }
               <br />
-              <div className="btn-run-wrapper">
+            {
+              inputText && <div className="btn-run-wrapper">
                 <Button
                   type="primary"
                   size="large"
@@ -421,6 +476,7 @@ function App() {
                   运行
                 </Button>
               </div>
+            }
             </Card>
           </Col>
         </Row>
