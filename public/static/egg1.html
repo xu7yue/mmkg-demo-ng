@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>政务事理图谱</title>
+    <link rel="stylesheet" href="./static_egg/lib/bootstrap/bootstrap-4.3.1.min.css">
+    <link rel="stylesheet" href="./static_egg/lib/toastr/toastr-2.1.4.min.css">
+    <link rel="stylesheet" href="./static_egg/css/common.css">
+</head>
+
+<body>
+
+    <!-- 页面主体 -->
+    <div class="page-margin body">
+        <!-- 搜索栏 -->
+
+        <div style="position: relative;">
+            <!-- 图谱主体 -->
+            <div id="main">
+
+            </div>
+
+            <!-- 因果信息 -->
+            <div id="causal-info" class="causal-info">
+                <div class="header" id="label-first">原因</div>
+                <div class="content" style="height: 64px;">
+                    <span class="cause" id="cause"></span>
+                </div>
+                <div class="header" id="label-second">结果</div>
+                <div class="content" style="height: 64px;">
+                    <span class="effect" id="effect"></span>
+                </div>
+                <div class="header">上下文</div>
+                <div class="content last" id="context" style="height: 360px;">
+                </div>
+                <div class="header">上下文图片</div>
+                <div class="content last" id="context_img" style="height: 260px;">
+                </div>
+            </div>
+            <div id="legend-overlay">
+                <span style="display:inline-block;width:30px;height:1.5px;background-color:#6ecf64;vertical-align:middle;"></span> <a class="legend">因果关系</a><br>
+                <span style="display:inline-block;width:30px;height:1.5px;background-color:#DA70D6;vertical-align:middle;"></span> <a class="legend">顺承关系</a><br>
+                <span style="display:inline-block;width:30px;height:1.5px;background-color:#d8752f;vertical-align:middle;"></span> <a class="legend">父子关系</a><br>
+                <!--
+                    <span style="display:inline-block;width:30px;height:1.5px;background-color:#C0C1C2;vertical-align:middle;"></span> <a class="legend">相似关系</a><br>
+                    -->
+            </div>
+        </div>
+
+        <!-- 版权信息 -->
+        <!-- <div class="copyright-container">
+            <span>Copyright @ 2018 HIT-SCIR All Rights Reserved. 哈工大社会计算与信息检索研究中心 版权所有</span>
+        </div> -->
+    </div>
+
+    <script src="./static_egg/lib/jquery/jquery-3.3.1.min.js"></script>
+    <script src="./static_egg/lib/bootstrap/bootstrap-4.3.1.min.js"></script>
+    <script src="./static_egg/lib/echarts/echarts-3.7.2.min.js"></script>
+    <script src="./static_egg/lib/toastr/toastr-2.1.4.min.js"></script>
+    <script src="./static_egg/js/index.js"></script>
+</body>
+
+</html>

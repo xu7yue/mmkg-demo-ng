@@ -50,6 +50,14 @@ function fetch_local_relative_images_impl(sent) {
 				{
 					'_similarity': 0.88,
 					'image_url' : './static/image2_2.png'
+				},
+				{
+					'_similarity': 0.76,
+					'image_url' : './static/image2_7.png'
+				},
+				{
+					'_similarity': 0.72,
+					'image_url' : './static/image2_6.png'
 				}
 			]
 		)
